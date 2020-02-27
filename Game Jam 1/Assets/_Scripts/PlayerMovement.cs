@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float JumpForce = 400f;                            // Amount of force added when the player jumps.
     [SerializeField] private LayerMask groundLayer;							// A mask determining what is ground to the character
     [SerializeField] private float speed = 4f;
+    //[SerializeField] private CapsuleCollider2D capsule;
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius;
     
@@ -45,12 +46,14 @@ public class PlayerMovement : MonoBehaviour
         {
             jump = true;
         }
+        isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
     }
 
 
     void FixedUpdate()
     {
-        isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
+        Debug.Log(isTouchingGround.ToString());
+
         if (moveHorizontal > 0f && !FacingRight)
         {
             Flip();
@@ -61,12 +64,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rigidBody2d.velocity = new Vector2(moveHorizontal * speed * Time.fixedDeltaTime, rigidBody2d.velocity.y);
-
+        if (!isTouchingGround)
+        {
+            jump = false;
+        }
         if(jump && isTouchingGround)
         {
             rigidBody2d.velocity = new Vector2(rigidBody2d.velocity.x, JumpForce);
             jump = false;
-
         }
     }
 }
