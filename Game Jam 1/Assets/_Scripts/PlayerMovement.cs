@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveHorizontal;
     private bool isTouchingGround;
     private bool jump;
+    [HideInInspector] public bool onDeath;
 
     private void Awake()
     {
@@ -73,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
             rigidBody2d.velocity = new Vector2(rigidBody2d.velocity.x, JumpForce);
             jump = false;
         }
+        onDeath = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -83,8 +85,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     void Die(GameObject collisionObject)
     {
+        onDeath = true;
         transform.position = respawnPoint.position;
         SpriteRenderer Srend = collisionObject.GetComponent<SpriteRenderer>();
         Srend.enabled = true;
