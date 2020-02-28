@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     //[SerializeField] private CapsuleCollider2D capsule;
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius;
-    
+    [SerializeField] private Transform respawnPoint;
 
     private Rigidbody2D rigidBody2d;
     private bool FacingRight = true;                                            // For determining which way the player is currently facing.
@@ -73,5 +73,20 @@ public class PlayerMovement : MonoBehaviour
             rigidBody2d.velocity = new Vector2(rigidBody2d.velocity.x, JumpForce);
             jump = false;
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Obstacle"))
+        {
+            Die(collision.gameObject);
+        }
+    }
+
+    void Die(GameObject collisionObject)
+    {
+        transform.position = respawnPoint.position;
+        SpriteRenderer Srend = collisionObject.GetComponent<SpriteRenderer>();
+        Srend.enabled = true;
     }
 }
