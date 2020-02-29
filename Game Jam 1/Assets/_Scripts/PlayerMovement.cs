@@ -50,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
         isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
     }
 
-
     void FixedUpdate()
     {
         Debug.Log(isTouchingGround.ToString());
@@ -85,12 +84,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     void Die(GameObject collisionObject)
     {
         onDeath = true;
         transform.position = respawnPoint.position;
         SpriteRenderer Srend = collisionObject.GetComponent<SpriteRenderer>();
         Srend.enabled = true;
+        TextUI.scoreValue++;
     }
 }

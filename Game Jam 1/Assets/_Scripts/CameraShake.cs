@@ -28,13 +28,14 @@ public class CameraShake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: Replace with your trigger
+
         if (Player.onDeath)
         {
+            ShakeElapsedTime = 0;
             ShakeElapsedTime = ShakeDuration;
         }
 
-        // If the Cinemachine componet is not set, avoid update
+        // If the Cinemachine component is not set, avoid update
         if (VirtualCamera != null && virtualCameraNoise != null)
         {
             // If Camera Shake effect is still playing
