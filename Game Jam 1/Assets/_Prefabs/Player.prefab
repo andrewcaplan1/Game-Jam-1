@@ -58,11 +58,12 @@ GameObject:
   - component: {fileID: 4747697535194311254}
   - component: {fileID: 4747697535194311255}
   - component: {fileID: 4747697535194311240}
+  - component: {fileID: 5998762637528441398}
   - component: {fileID: 4747697535194311245}
   - component: {fileID: 4747697535194311242}
   - component: {fileID: 4747697535194311244}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,7 +155,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4747697535194311245
+--- !u!114 &5998762637528441398
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,6 +163,27 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4747697535194311243}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ecc1d0061b684967a29a36925c57459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JumpForce: 1000
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  speed: 4
+  groundCheckPoint: {fileID: 4747697534775782068}
+  groundCheckRadius: 0
+  respawnPoint: {fileID: 0}
+  onDeath: 0
+--- !u!114 &4747697535194311245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747697535194311243}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c36e64d26753a41ab534f8c36cbd43, type: 3}
   m_Name: 
