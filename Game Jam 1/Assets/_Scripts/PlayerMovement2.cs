@@ -125,11 +125,6 @@ public class PlayerMovement2 : MonoBehaviour
         rigidbody2d.Sleep();
         SpriteRenderer Srend = collisionObject.GetComponent<SpriteRenderer>();
         Srend.enabled = true;
-        TextUI.scoreValue++;
-        if(collisionObject.Equals(shooter))
-        {
-            SpriteRenderer shooterRend = shooter.GetComponent<SpriteRenderer>();
-            shooterRend.sprite = unveiled;
-        }
+        LevelEndText.scoreValue++;
     }
 }

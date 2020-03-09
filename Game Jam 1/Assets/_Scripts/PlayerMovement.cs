@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,13 +10,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private Transform respawnPoint;
+    public List<Vector3> deathLocations;
+    [SerializeField] private GameObject levelSelector;
+    private LevelSelector levelSelectorScript;
 
     private Rigidbody2D rigidBody2d;
     private bool FacingRight = true;                                            // For determining which way the player is currently facing.
     private float moveHorizontal;
-    private bool isTouchingGround;
+    [SerializeField] private bool isTouchingGround;
     private bool jump;
     [HideInInspector] public bool onDeath;
+    [SerializeField] private float restrictMovement = 1f;
 
     private void Awake()
     {
@@ -32,11 +37,11 @@ public class PlayerMovement : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
     }
-   
+
     void Start()
     {
         rigidBody2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-        //JumpVector = new Vector2(0f, JumpForce);
+        levelSelectorScript = levelSelector.GetComponent<LevelSelector>();
     }
 
     void Update()
@@ -54,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log(isTouchingGround.ToString());
 
+        //flip
         if (moveHorizontal > 0f && !FacingRight)
         {
             Flip();
@@ -63,17 +69,24 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
-        rigidBody2d.velocity = new Vector2(moveHorizontal * speed * Time.fixedDeltaTime, rigidBody2d.velocity.y);
+        rigidBody2d.velocity = new Vector2(moveHorizontal * speed * restrictMovement * Time.fixedDeltaTime, rigidBody2d.velocity.y);
+
         if (!isTouchingGround)
         {
             jump = false;
         }
-        if(jump && isTouchingGround)
+        if (isTouchingGround)
         {
-            rigidBody2d.velocity = new Vector2(rigidBody2d.velocity.x, JumpForce);
-            jump = false;
+            restrictMovement = 1f;
+            if (jump)
+            {
+                rigidBody2d.velocity = new Vector2(rigidBody2d.velocity.x, JumpForce);
+                jump = false;
+            }
+
         }
-        onDeath = false;
+
+        Debug.Log(deathLocations);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -81,15 +94,23 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Obstacle"))
         {
             Die(collision.gameObject);
+        } else if (collision.CompareTag("WinLevel"))
+        {
+            Debug.LogError(collision.name);
+            string colliderName = collision.name;
+            colliderName = colliderName.Remove(colliderName.Length - 6);
+            levelSelectorScript.LoadNextLevel(colliderName);
         }
     }
 
     void Die(GameObject collisionObject)
     {
+        restrictMovement = 0f;
         onDeath = true;
+        deathLocations.Add(transform.position);
         transform.position = respawnPoint.position;
-        SpriteRenderer Srend = collisionObject.GetComponent<SpriteRenderer>();
-        Srend.enabled = true;
-        TextUI.scoreValue++;
+        Renderer rend = collisionObject.GetComponent<Renderer>();
+        rend.enabled = true;
+        LevelEndText.scoreValue++;
     }
 }

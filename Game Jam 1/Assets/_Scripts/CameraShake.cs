@@ -11,7 +11,7 @@ public class CameraShake : MonoBehaviour
     [SerializeField] private float ShakeAmplitude = 1.2f;         // Cinemachine Noise Profile Parameter
     [SerializeField] private float ShakeFrequency = 2.0f;         // Cinemachine Noise Profile Parameter
 
-    private float ShakeElapsedTime = 0f;
+    [SerializeField] private float ShakeElapsedTime = 0.0f;
 
     // Cinemachine Shake
     [SerializeField] private CinemachineVirtualCamera VirtualCamera;
@@ -23,15 +23,16 @@ public class CameraShake : MonoBehaviour
         // Get Virtual Camera Noise Profile
         if (VirtualCamera != null)
             virtualCameraNoise = VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+        ShakeElapsedTime = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
-    {
-
+    {  
         if (Player.onDeath)
         {
-            ShakeElapsedTime = 0;
+            Player.onDeath = false;
+            ShakeElapsedTime = 0.0f;
             ShakeElapsedTime = ShakeDuration;
         }
 
@@ -39,7 +40,7 @@ public class CameraShake : MonoBehaviour
         if (VirtualCamera != null && virtualCameraNoise != null)
         {
             // If Camera Shake effect is still playing
-            if (ShakeElapsedTime > 0)
+            if (ShakeElapsedTime > 0.0f)
             {
                 // Set Cinemachine Camera Noise parameters
                 virtualCameraNoise.m_AmplitudeGain = ShakeAmplitude;
@@ -48,12 +49,13 @@ public class CameraShake : MonoBehaviour
                 // Update Shake Timer
                 ShakeElapsedTime -= Time.deltaTime;
             }
-            else
+            else if (ShakeElapsedTime <= 0.0f)
             {
                 // If Camera Shake effect is over, reset variables
                 virtualCameraNoise.m_AmplitudeGain = 0f;
-                ShakeElapsedTime = 0f;
+                ShakeElapsedTime = 0.0f;
             }
         }
+
     }
 }
