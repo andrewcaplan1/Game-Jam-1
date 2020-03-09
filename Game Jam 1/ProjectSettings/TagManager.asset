@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Ground
+  - WinLevel
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - Ground
   - Obstacle
-  - 
+  - WinLevel
   - 
   - 
   - 
@@ -45,4 +46,7 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 1606063559
+    locked: 0
+  - name: Text
+    uniqueID: 3022806155
     locked: 0

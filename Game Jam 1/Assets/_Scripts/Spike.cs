@@ -5,16 +5,26 @@ using UnityEngine.Tilemaps;
 
 public class Spike : MonoBehaviour
 {
-    private SpriteRenderer SRenderer;
-    private TilemapRenderer TRenderer;
+    //[SerializeField] private SpriteRenderer SRenderer;
+    //[SerializeField] private TilemapRenderer TRenderer;
+    [SerializeField] private Renderer rend;
+    [SerializeField] private bool tilemapIsEnabled = false;
 
     void Start()
     {
-        SRenderer = GetComponent<SpriteRenderer>();
-        TRenderer = GetComponent<TilemapRenderer>();
-        SRenderer.enabled = false;
-        TRenderer.enabled = false;
+        //SRenderer = GetComponent<SpriteRenderer>();
+        //TRenderer = GetComponent<TilemapRenderer>();
+        //SRenderer.enabled = false;
+        //TRenderer.enabled = tilemapIsEnabled;
+        rend = GetComponent<Renderer>();
+        rend.enabled = false;
 
+    }
+
+    void Update()
+    {
+        tilemapIsEnabled = rend.enabled;
+        //tilemapIsEnabled = TRenderer.enabled;
     }
 
 }
