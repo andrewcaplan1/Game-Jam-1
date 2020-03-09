@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class CameraShake : MonoBehaviour
 {
-    public PlayerMovement2 Player;
+    public PlayerMovement Player;
     [SerializeField] private float ShakeDuration = 0.3f;          // Time the Camera Shake effect will last
     [SerializeField] private float ShakeAmplitude = 1.2f;         // Cinemachine Noise Profile Parameter
     [SerializeField] private float ShakeFrequency = 2.0f;         // Cinemachine Noise Profile Parameter

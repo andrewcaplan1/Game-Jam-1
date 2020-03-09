@@ -17,6 +17,9 @@ public class PlayerMovement2 : MonoBehaviour
     private Rigidbody2D rigidbody2d;
     private BoxCollider2D boxCollider2d;
 
+    public GameObject shooter;
+    public Sprite unveiled;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -123,5 +126,10 @@ public class PlayerMovement2 : MonoBehaviour
         SpriteRenderer Srend = collisionObject.GetComponent<SpriteRenderer>();
         Srend.enabled = true;
         TextUI.scoreValue++;
+        if(collisionObject.Equals(shooter))
+        {
+            SpriteRenderer shooterRend = shooter.GetComponent<SpriteRenderer>();
+            shooterRend.sprite = unveiled;
+        }
     }
 }
