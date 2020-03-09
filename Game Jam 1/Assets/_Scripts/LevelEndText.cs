@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextUI : MonoBehaviour
+public class LevelEndText : MonoBehaviour
 {
-    [SerializeField] private string text1;
-    [SerializeField] private string text2;
-    [SerializeField] private string text3;
-    [SerializeField] private string text4;
-    [SerializeField] private string text5;
+    [SerializeField] private string text1 = "Eeek....";
+    [SerializeField] private string text2 = "thats a lot of deaths";
+    [SerializeField] private string text3 = "you can do better";
+    [SerializeField] private string text4 = "You aren't supposed to get THAT many deaths";
+    [SerializeField] private string text5 = "you should try again";
 
     public static int scoreValue = 0;
-    Text numDeaths;
+    [SerializeField] private Text numDeaths;
     // Start is called before the first frame update
     void Start()
     {

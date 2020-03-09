@@ -111,6 +111,6 @@ public class PlayerMovement : MonoBehaviour
         transform.position = respawnPoint.position;
         Renderer rend = collisionObject.GetComponent<Renderer>();
         rend.enabled = true;
-        TextUI.scoreValue++;
+        LevelEndText.scoreValue++;
     }
 }

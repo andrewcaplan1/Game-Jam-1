@@ -122,6 +122,6 @@ public class PlayerMovement2 : MonoBehaviour
         rigidbody2d.Sleep();
         SpriteRenderer Srend = collisionObject.GetComponent<SpriteRenderer>();
         Srend.enabled = true;
-        TextUI.scoreValue++;
+        LevelEndText.scoreValue++;
     }
 }

@@ -12,10 +12,16 @@ public class MasterLighting: MonoBehaviour
 {
     private Light2D[] lights;
     private float[] lightsReference;
-    public float intense = 1;
+    public static float m_intense = 1f;
     private float num;
     [SerializeField] private ParticleSystem fog;
     //LevelSelector nextLevel;
+
+    public float Intense
+    {
+        get { return m_intense; }
+        set { m_intense = value; }
+    }
 
     void Awake()
     {
@@ -33,17 +39,17 @@ public class MasterLighting: MonoBehaviour
     void FixedUpdate()
     {
         
-        if (num != intense)
+        if (num != m_intense)
         {
             for (int i = 0; i < lights.Length; i++)
             {
-                lights[i].intensity = lightsReference[i] * intense;
+                lights[i].intensity = lightsReference[i] * m_intense;
                 Debug.Log("work?");
             }
         }
-        num = intense;
+        num = m_intense;
 
-        if (intense <= 0)
+        if (m_intense <= 0)
         {
             fog.Stop();
         }
