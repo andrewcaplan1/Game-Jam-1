@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Cinemachine;
-//UnityEngine.Experimental.Rendering.Universal
 using UnityEngine.Experimental.Rendering.Universal;
 using System.Collections.Generic;
 using System;
@@ -14,7 +13,9 @@ public class MasterLighting: MonoBehaviour
     private float[] lightsReference;
     public static float m_intense = 1f;
     private float num;
+    private float num1;
     [SerializeField] private ParticleSystem fog;
+    [SerializeField] [Range(0,1)] private float intensity;
     //LevelSelector nextLevel;
 
     public float Intense
@@ -26,7 +27,6 @@ public class MasterLighting: MonoBehaviour
     void Awake()
     {
         lights = (Light2D[])GameObject.FindObjectsOfType(typeof(Light2D));
-        num = lights.Length;
         Array.Resize(ref lightsReference, lights.Length);
         for (int i = 0; i < lights.Length; i++)
         {
@@ -39,15 +39,16 @@ public class MasterLighting: MonoBehaviour
     void FixedUpdate()
     {
         
-        if (num != m_intense)
+        if (num != m_intense || num1 != intensity)
         {
             for (int i = 0; i < lights.Length; i++)
             {
-                lights[i].intensity = lightsReference[i] * m_intense;
+                lights[i].intensity = lightsReference[i] * m_intense * intensity;
                 Debug.Log("work?");
             }
         }
         num = m_intense;
+        num1 = intensity;
 
         if (m_intense <= 0)
         {

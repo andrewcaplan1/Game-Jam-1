@@ -167,15 +167,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ecc1d0061b684967a29a36925c57459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpForce: 1000
+  JumpForce: 20
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  speed: 4
+  speed: 1000
   groundCheckPoint: {fileID: 4747697534775782068}
-  groundCheckRadius: 0
+  groundCheckRadius: 2
   respawnPoint: {fileID: 0}
+  levelSelector: {fileID: 0}
+  isTouchingGround: 0
+  restrictMovement: 1
   onDeath: 0
+  deathLocations: []
 --- !u!114 &4747697535194311245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +213,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.26797485}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -220,7 +224,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 17.19, y: 18.23}
+  m_Size: {x: 17.19, y: 17.69405}
   m_EdgeRadius: 0
 --- !u!82 &4747697535194311244
 AudioSource:
