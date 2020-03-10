@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: GroundTile
+  m_Name: BlackBackground
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: d625394b7216a27429fdcb9a6debfca3, type: 3}
-  m_Color: {r: 0.6, g: 0.8, b: 0.8, a: 1}
+  m_Sprite: {fileID: 21300000, guid: a47553d7e075e904e9086b1de1f8646e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
