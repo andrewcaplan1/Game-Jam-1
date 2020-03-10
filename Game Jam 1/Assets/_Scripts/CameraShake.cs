@@ -28,7 +28,7 @@ public class CameraShake : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {  
+    {
         if (Player.onDeath)
         {
             Player.onDeath = false;

@@ -10,17 +10,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private Transform respawnPoint;
-    public List<Vector3> deathLocations;
     [SerializeField] private GameObject levelSelector;
-    private LevelSelector levelSelectorScript;
+    [SerializeField] private bool isTouchingGround;
+    [SerializeField] private float restrictMovement = 1f;
 
+    [HideInInspector] public bool onDeath;
+
+    public List<Vector3> deathLocations;
+
+    private LevelSelector levelSelectorScript;
     private Rigidbody2D rigidBody2d;
     private bool FacingRight = true;                                            // For determining which way the player is currently facing.
     private float moveHorizontal;
-    [SerializeField] private bool isTouchingGround;
+
     private bool jump;
-    [HideInInspector] public bool onDeath;
-    [SerializeField] private float restrictMovement = 1f;
 
     private void Awake()
     {
@@ -53,6 +56,10 @@ public class PlayerMovement : MonoBehaviour
             jump = true;
         }
         isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Die();
+        }
     }
 
     void FixedUpdate()
@@ -99,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError(collision.name);
             string colliderName = collision.name;
             colliderName = colliderName.Remove(colliderName.Length - 6);
-            levelSelectorScript.LoadNextLevel(colliderName);
+            levelSelectorScript.PrepareNextLevel(colliderName);
         }
     }
 
@@ -111,6 +118,15 @@ public class PlayerMovement : MonoBehaviour
         transform.position = respawnPoint.position;
         Renderer rend = collisionObject.GetComponent<Renderer>();
         rend.enabled = true;
+        LevelEndText.scoreValue++;
+    }
+
+    public void Die()
+    {
+        restrictMovement = 0f;
+        onDeath = true;
+        deathLocations.Add(transform.position);
+        transform.position = respawnPoint.position;
         LevelEndText.scoreValue++;
     }
 }
