@@ -9,7 +9,9 @@ public class StartGame : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+            //LoadNextLevel();
+
+            //SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
             //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
         }
         

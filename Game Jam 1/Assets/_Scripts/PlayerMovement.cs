@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private Transform respawnPoint;
-    [SerializeField] private GameObject levelSelector;
+    //[SerializeField] private GameObject levelSelector;
     [SerializeField] private bool isTouchingGround;
     [SerializeField] private float restrictMovement = 1f;
 
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     public List<Vector3> deathLocations;
 
-    private LevelSelector levelSelectorScript;
+    //private LevelSelector levelSelectorScript;
     private Rigidbody2D rigidBody2d;
     private bool FacingRight = true;                                            // For determining which way the player is currently facing.
     private float moveHorizontal;
@@ -44,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigidBody2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-        levelSelectorScript = levelSelector.GetComponent<LevelSelector>();
+        //levelSelectorScript = levelSelector.GetComponent<LevelSelector>();
     }
 
     void Update()
@@ -104,12 +105,31 @@ public class PlayerMovement : MonoBehaviour
         } else if (collision.CompareTag("WinLevel"))
         {
             Debug.LogError(collision.name);
-            string colliderName = collision.name;
-            colliderName = colliderName.Remove(colliderName.Length - 6);
-            levelSelectorScript.PrepareNextLevel(colliderName);
+            //string colliderName = collision.name;
+            //colliderName = colliderName.Remove(colliderName.Length - 6);
+            //levelSelectorScript.PrepareNextLevel(colliderName);
+        }
+
+        if (collision.CompareTag("BreakTile"))
+        {
+
+            //Destroy(collision.GetComponent<Renderer>());
+            breakTile(collision.gameObject);
+            //Debug.Log("breaktile found:" + collision.name.ToString());
+
+
+
         }
     }
 
+    void breakTile(GameObject tileObject)
+    {
+        //tileObject.SetActive(false);
+        Renderer rend = tileObject.GetComponent<Renderer>();
+        rend.enabled = false;
+        Collider2D col = tileObject.GetComponent<TilemapCollider2D>();
+        col.enabled = false;
+    }
     void Die(GameObject collisionObject)
     {
         restrictMovement = 0f;
